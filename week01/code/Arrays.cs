@@ -8,12 +8,22 @@ public static class Arrays
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     public static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // My plan:
+        // 1. I need to create an array that will hold 'length' number of items
+        // 2. Loop through each position in the array
+        // 3. At each position i, the value should be number * (i + 1)
+        //    because i starts at 0, so I add 1 to get the first multiple right
+        //    e.g. number=7, i=0 → 7*1=7, i=1 → 7*2=14, etc.
+        // 4. Return the filled array
 
-        return []; // replace this return statement with your own
+        double[] result = new double[length];
+
+        for (int i = 0; i < length; i++)
+        {
+            result[i] = number * (i + 1);
+        }
+
+        return result;
     }
 
     /// <summary>
@@ -25,9 +35,28 @@ public static class Arrays
     /// </summary>
     public static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // My plan:
+        // "Rotate right by 3" on {1,2,3,4,5,6,7,8,9} gives {7,8,9,1,2,3,4,5,6}
+        // So the last 'amount' items jump to the front
+        //
+        // 1. Find where to split the list
+        //    splitIndex = data.Count - amount
+        //    e.g. 9 items, amount=3 → splitIndex = 6
+        //
+        // 2. Grab the two pieces:
+        //    tail = items from splitIndex to end  → {7, 8, 9}
+        //    head = items from 0 to splitIndex    → {1, 2, 3, 4, 5, 6}
+        //
+        // 3. Clear the original list, then put tail first, head second
+        //    result → {7, 8, 9, 1, 2, 3, 4, 5, 6}
+
+        int splitIndex = data.Count - amount;
+
+        List<int> tail = data.GetRange(splitIndex, amount);
+        List<int> head = data.GetRange(0, splitIndex);
+
+        data.Clear();
+        data.AddRange(tail);
+        data.AddRange(head);
     }
 }
